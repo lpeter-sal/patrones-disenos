@@ -35,19 +35,29 @@ interface Report {
 // Implementar SalesReport e InventoryReport
 
 class SalesReport implements Report {
-  // TODO: implementar el método e imprimir en consola:
-  // 'Generando reporte de ventas...'
+  generate(): void {
+    console.log('%cGenerando reporte de ventas... ', COLORS.green);
+  }
 }
 
 class InventoryReport implements Report {
-  // TODO: implementar el método e imprimir en consola:
-  // 'Generando reporte de inventario...'
+  generate(): void {
+    console.log('%cGenerando reporte de inventario... ', COLORS.blue);
+  }
+}
+
+class MarketingReport implements Report {
+  generate(): void {
+    console.log('%cGenerando reporte de márketing... ', COLORS.purple);
+  }
 }
 
 // 3. Clase Base ReportFactory con el Método Factory
 
+// * El protected nos ayuda a que el metodo sea accesible solo dentro de la clase y sus subclases
+// * pero no desde fuera de la clase.
 abstract class ReportFactory {
-  abstract createReport(): Report;
+  protected abstract createReport(): Report;
 
   generateReport(): void {
     const report = this.createReport();
@@ -59,13 +69,19 @@ abstract class ReportFactory {
 
 class SalesReportFactory extends ReportFactory {
   createReport(): Report {
-    throw new Error('Method not implemented.');
+    return new SalesReport();
   }
 }
 
 class InventoryReportFactory extends ReportFactory {
   createReport(): Report {
-    throw new Error('Method not implemented.');
+    return new InventoryReport();
+  }
+}
+
+class MarketingReportFactory extends ReportFactory {
+  createReport(): Report {
+    return new MarketingReport();
   }
 }
 
@@ -75,14 +91,22 @@ function main() {
   let reportFactory: ReportFactory;
 
   const reportType = prompt(
-    '¿Qué tipo de reporte deseas? %c(sales/inventory)',
-    COLORS.red
-  );
+     '¿Qué tipo de reporte deseas? (sales/inventory/marketing)'
+    )?.toLocaleLowerCase();
 
-  if (reportType === 'sales') {
-    reportFactory = new SalesReportFactory();
-  } else {
-    reportFactory = new InventoryReportFactory();
+  switch (reportType) {
+    case 'sales':
+      reportFactory = new SalesReportFactory();
+      break;
+    case 'inventory':
+      reportFactory = new InventoryReportFactory();
+      break;
+    case 'marketing':
+      reportFactory = new MarketingReportFactory();
+      break;
+    default:
+      console.log('Tipo de reporte no válido.');
+      return;
   }
 
   reportFactory.generateReport();

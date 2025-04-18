@@ -92,6 +92,7 @@ function main() {
     .where('age > 18')
     .where("country = 'Cri'") // Esto debe de hacer una condición AND
     .orderBy('name', 'ASC')
+    .orderBy('age', 'DESC')
     .limit(10)
     .execute();
 
