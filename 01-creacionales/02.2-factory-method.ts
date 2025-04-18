@@ -14,14 +14,14 @@
 
 /**
  * 	!Descripción:
-  1.	Completen las clases SalesReport e InventoryReport para implementar 
-      la interfaz Report, generando el contenido de cada reporte en el método generate.
+  1.	Completen las clases SalesReport e InventoryReport para implementar 🆗
+      la interfaz Report, generando el contenido de cada reporte en el método generate. ✅
 	  
-  2.	Implementen las clases SalesReportFactory e InventoryReportFactory 
-      para crear instancias de SalesReport y InventoryReport, respectivamente.
+  2.	Implementen las clases SalesReportFactory e InventoryReportFactory 🆗
+      para crear instancias de SalesReport y InventoryReport, respectivamente. ✅
 
 	3.	Prueben el programa generando diferentes tipos de reportes usando
-      el prompt para seleccionar el tipo de reporte.
+      el prompt para seleccionar el tipo de reporte. ✅✅✅
  */
 
 import { COLORS } from '../helpers/colors.ts';
