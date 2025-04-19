@@ -9,27 +9,32 @@
 
 /**
  1.	Completen el método copyWith en la clase Player para que permita 
- crear una copia con cambios en name, score o level.
+ crear una copia con cambios en name, score o level. 🆗✅✅✅
  
  2.	Usen el código cliente para probar el funcionamiento de copyWith, 
- haciendo cambios en el puntaje, nivel y nombre del jugador.
+ haciendo cambios en el puntaje, nivel y nombre del jugador. 🆗✅✅✅
  */
 
 import { COLORS } from '../helpers/colors.ts';
 
 // 1. Clase Player inmutable
 class Player {
-  readonly name: string;
-  readonly score: number;
-  readonly level: number;
+  // readonly name: string;
+  // readonly score: number;
+  // readonly level: number;
 
-  constructor(name: string, score: number, level: number) {
-    throw new Error('Method not implemented.');
-  }
+  constructor(
+    readonly name: string, 
+    readonly score: number, 
+    readonly level: number ) { }
 
   // Método copyWith para crear una copia modificada del jugador
   copyWith({ name, score, level }: Partial<Player>): Player {
-    throw new Error('Method not implemented.');
+    return new Player(
+      name ?? this.name,
+      score ?? this.score,
+      level ?? this.level
+    );
   }
 
   displayState(): void {
