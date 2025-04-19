@@ -14,39 +14,55 @@ class DatabaseConnection {
   private static instance: DatabaseConnection;
   private connected: boolean = false;
 
-  // Constructor privado para evitar instancias directas
+  // Constructor privado para evitar instancias directas ✅🆗
   private constructor() {}
 
   // Método estático para obtener la instancia única
   public static getInstance(): DatabaseConnection {
-    // Completar: implementar el patrón Singleton
-    throw new Error('Method not implemented.');
+    // Completar: implementar el patrón Singleton ✅🆗
+    if( !DatabaseConnection.instance ) {
+      DatabaseConnection.instance = new DatabaseConnection();
+      console.log('%cConexión a la base de datos creada!', COLORS.green);
+    }
+    return DatabaseConnection.instance;
   }
 
   // Método para conectar a la base de datos
   public connect(): void {
-    // Completar: si no está conectado, mostrar mensaje de conexión
+    // Completar: si no está conectado, mostrar mensaje de conexión ✅🆗
+    if( !this.connected ) {
+      this.connected = true;
+      console.log('%cConectado a la base de datos!', COLORS.blue);
+      return;
+    }
+    console.log('%cYa existe una conexión activa!', COLORS.red);
   }
 
   // Método para desconectar de la base de datos
   public disconnect(): void {
-    // Completar: desconectar y mostrar mensaje de desconexión
+    // Completar: desconectar y mostrar mensaje de desconexión ✅🆗
+    if( this.connected ) {
+      this.connected = false;
+      console.log('%cDesconectado de la base de datos!', COLORS.yellow);
+      return;
+    }
+    console.log('%cNo hay conexión activa para desconectar!', COLORS.red);
   }
 }
 
 // Pruebas
 function main() {
   const db1 = DatabaseConnection.getInstance();
-  db1.connect(); // Debería conectar a la base de datos
+  db1.connect(); // Debería conectar a la base de datos ✅
 
   const db2 = DatabaseConnection.getInstance();
-  db2.connect(); // Debería mostrar que ya existe una conexión activa
+  db2.connect(); // Debería mostrar que ya existe una conexión activa ✅
 
-  console.log('Son iguales:', db1 === db2); // Debería mostrar true
+  console.log('Son iguales:', db1 === db2); // Debería mostrar true ✅
 
-  db1.disconnect(); // Debería cerrar la conexión
+  db1.disconnect(); // Debería cerrar la conexión ✅
 
-  db2.connect(); // Ahora debería conectar de nuevo, ya que se cerró la anterior
+  db2.connect(); // Ahora debería conectar de nuevo, ya que se cerró la anterior ✅
 }
 
 main();
