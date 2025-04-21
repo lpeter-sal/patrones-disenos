@@ -1,3 +1,4 @@
+import { COLORS } from '../helpers/colors.ts';
 /**
  * ! Patrón Bridge
  * Este patrón nos permite desacoplar una abstracción de su implementación,
@@ -9,3 +10,83 @@
  *
  * https://refactoring.guru/es/design-patterns/bridge
  */
+
+interface Ability {
+    use(): void;
+
+}
+
+
+class SwordAttack implements Ability {
+    use(): void {
+        console.log('%cAttack with Sword attack!', COLORS.blue);
+    }
+}
+
+class AxeAttack implements Ability {
+    use(): void {
+        console.log('%cAttack with Axe attack!', COLORS.green);
+    }
+}
+
+class MagicSpell implements Ability {
+    use(): void {
+        console.log('%cAttack with Magic Spell!', COLORS.purple);
+    }
+}
+
+class FireballSpell implements Ability {
+    use(): void {
+        console.log('%cAttack with Fireball Spell!', COLORS.yellow);
+    }
+}
+
+
+
+abstract class Character {
+    constructor(protected ability: Ability) { }
+
+    setAbility(ability: Ability) {
+        this.ability = ability;
+    }
+
+    abstract perfomAbility(): void;
+
+}
+
+class Warrior extends Character {
+
+    perfomAbility(): void {
+        console.log('%cWarrior is ready to attack!', COLORS.red);
+        this.ability.use();
+    }
+}
+
+class Mage extends Character {
+
+    perfomAbility(): void {
+        console.log('%cMage prepare his magic', COLORS.red);
+        this.ability.use();
+
+    }
+}
+
+
+function main () {
+
+    const warrior = new Warrior( new SwordAttack());
+    warrior.perfomAbility();
+
+    console.log('\n');
+    
+    warrior.setAbility(new AxeAttack());
+    warrior.perfomAbility();
+    
+    console.log('\n');
+
+    const mage = new Mage(new MagicSpell());
+    mage.perfomAbility();
+
+}
+
+main();
