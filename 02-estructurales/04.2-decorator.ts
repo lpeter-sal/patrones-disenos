@@ -12,45 +12,53 @@
  * https://refactoring.guru/es/design-patterns/decorator
  */
 
-// 1. Interfaz Character
+
+// 1. Interfaz Character 🆗✅✅✅
 interface Character {
   getDescription(): string;
   getStats(): { attack: number; defense: number };
 }
 
-// 2. Clase BasicCharacter
-// Representa un personaje básico sin accesorios
-// TODO: Implementar la interfaz Character
-class BasicCharacter {
-  // TODO: Implementar los métodos de la interfaz
-  // getDescription: return 'Personaje básico';
-  // TODO: Implementar los métodos de la interfaz
-  // getStats: return { attack: 10, defense: 10 };
+// 2. Clase BasicCharacter 🆗
+// Representa un personaje básico sin accesorios ✅✅✅
+class BasicCharacter implements Character {
+  // getDescription: return 'Personaje básico'; ✅✅✅
+  // getStats: return { attack: 10, defense: 10 }; ✅✅✅
+  getDescription(): string {
+    return 'Personaje básico';
+  }
+  getStats(): { attack: number; defense: number; } {
+    return { attack: 10, defense: 10 };
+  }
+
 }
 
-// 3. Clase Decoradora CharacterDecorator
+// 3. Clase Decoradora CharacterDecorator 🆗
 // Actúa como base para los decoradores específicos
 abstract class CharacterDecorator implements Character {
-  // Protected para que las clases hijas puedan acceder a la propiedad
-  // Private no permitiría que las clases hijas accedan a la propiedad
-  // TODO: Definir la propiedad protected character de tipo Character
+  // Protected para que las clases hijas puedan acceder a la propiedad ✅✅✅
+  //* Private no permitiría que las clases hijas accedan a la propiedad 
+  protected character: Character;
 
-  // TODO: Definir el constructor que recibe un personaje de tipo Character
-
-  // TODO: Implementar los métodos de la interfaz Character, pero retornando
-  // la descripción y estadísticas del personaje decorado
-  getDescription(): string {
-    throw new Error('Method not implemented.');
+  // Definir el constructor que recibe un personaje de tipo Character ✅✅✅
+  constructor(character: Character) {
+    this.character = character;
   }
 
-  // TODO: Implementar los métodos de la interfaz Character
+  // Implementar los métodos de la interfaz Character, pero retornando 🆗
+  // la descripción y estadísticas del personaje decorado ✅✅✅
+  getDescription(): string {
+    return this.character.getDescription();
+  }
+
+  // Implementar los métodos de la interfaz Character ✅✅✅
   getStats(): { attack: number; defense: number } {
-    throw new Error('Method not implemented.');
+    return this.character.getStats();
   }
 }
 
-// 4. Decorador Concreto HelmetDecorator
-// Añade un casco que aumenta la defensa en +5
+// 4. Decorador Concreto HelmetDecorator 🆗
+// Añade un casco que aumenta la defensa en +5 ✅✅✅
 class HelmetDecorator extends CharacterDecorator {
   override getDescription(): string {
     return this.character.getDescription() + '\n * con Casco';
@@ -62,8 +70,8 @@ class HelmetDecorator extends CharacterDecorator {
   }
 }
 
-// 5. Decorador Concreto ShieldDecorator
-// Añade un escudo que aumenta la defensa en +10
+// 5. Decorador Concreto ShieldDecorator 🆗
+// Añade un escudo que aumenta la defensa en +10 ✅✅✅
 class ShieldDecorator extends CharacterDecorator {
   override getDescription(): string {
     return this.character.getDescription() + '\n * con Escudo';
@@ -75,8 +83,8 @@ class ShieldDecorator extends CharacterDecorator {
   }
 }
 
-// 6. Decorador Concreto SwordDecorator
-// Añade una espada que aumenta el ataque en +7
+// 6. Decorador Concreto SwordDecorator 🆗
+// Añade una espada que aumenta el ataque en +7 ✅✅✅
 class SwordDecorator extends CharacterDecorator {
   override getDescription(): string {
     return this.character.getDescription() + '\n * con Espada';
@@ -88,28 +96,38 @@ class SwordDecorator extends CharacterDecorator {
   }
 }
 
-// TODO: Crear un nuevo decorador que añada un anillo que aumenta el ataque en +3
-// class RingDecorator ...
+// Crear un nuevo decorador que añada un anillo que aumenta el ataque en +3 🆗
+// class RingDecorator ... ✅✅✅
+class RingDecorator extends CharacterDecorator {
+  override getDescription(): string {
+    return this.character.getDescription() + '\n * con Anillo';
+  }
 
-// 7. Código Cliente para Probar el Decorador
+  override getStats(): { attack: number; defense: number } {
+    const stats = this.character.getStats();
+    return { attack: stats.attack + 3, defense: stats.defense };
+  }
+}
+
+// 7. Código Cliente para Probar el Decorador 🆗✅✅✅
 
 function main() {
-  // Crear un personaje básico
+  // Crear un personaje básico ✅✅✅
   let character: Character = new BasicCharacter();
   console.log('\nPersonaje inicial:', character.getDescription());
   console.log('Estadísticas:', character.getStats());
 
-  // Añadir un casco al personaje
+  // Añadir un casco al personaje ✅✅✅
   character = new HelmetDecorator(character);
   console.log('\nCon Casco:', character.getDescription());
   console.log('Estadísticas:', character.getStats());
 
-  // Añadir un escudo al personaje
+  // Añadir un escudo al personaje ✅✅✅
   character = new ShieldDecorator(character);
   console.log('\nCon Escudo:', character.getDescription());
   console.log('Estadísticas:', character.getStats());
 
-  // Añadir una espada al personaje
+  // Añadir una espada al personaje ✅✅✅
   character = new SwordDecorator(character);
   console.log('\nCon Espada:', character.getDescription());
   console.log('Estadísticas:', character.getStats());
