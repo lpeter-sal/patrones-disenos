@@ -13,12 +13,12 @@
 
 import { COLORS } from '../helpers/colors.ts';
 
-// 1. Interfaz Document
+// 1. Interfaz Document 🆗✅✅✅
 interface Document {
   displayContent(user: User): void;
 }
 
-// 2. Clase que representa el Documento Confidencial - ConfidentialDocument
+// 2. Clase que representa el Documento Confidencial - ConfidentialDocument 🆗✅✅✅
 class ConfidentialDocument implements Document {
   private content: string;
 
@@ -31,21 +31,33 @@ class ConfidentialDocument implements Document {
   }
 }
 
-// 3. Clase Proxy - DocumentProxy
+// 3. Clase Proxy - DocumentProxy 🆗
 class DocumentProxy implements Document {
   private document: ConfidentialDocument;
+  private mustHaveRole: string[];
 
-  // TODO: Implementar el constructor de la clase DocumentProxy
+  // Implementar el constructor de la clase DocumentProxy ✅✅✅
+  constructor(document: ConfidentialDocument, mustHaveRole: string[]) {
+    this.document = document;
+    this.mustHaveRole = mustHaveRole;
+  }
+
 
   displayContent(user: User): void {
-    // TODO: Implementar la lógica para verificar si el usuario tiene permisos
-    // Sólo si es admin puede ver el contenido
-    // Caso contrario, mostrar un mensaje de acceso denegado:
-    // EJ: `%cAcceso denegado. ${user.getName()}, no tienes permisos suficientes para ver este documento.`,
+    // Implementar la lógica para verificar si el usuario tiene permisos suficientes ✅✅✅
+    // Sólo si es admin puede ver el contenido del documento. ✅✅✅
+    if( this.mustHaveRole.includes(user.getRole()) ) {
+      console.log(`%cAcceso permitido. ${user.getName()}, puedes ver el contenido del documento.`, COLORS.green);
+      this.document.displayContent();
+      return;
+    }
+    // Caso contrario, mostrar un mensaje de acceso denegado: 🆗
+    // EJ: `%cAcceso denegado. ${user.getName()}, no tienes permisos suficientes para ver este documento.`, ✅✅✅
+    console.log(`%cAcceso denegado. ${user.getName()}, no tienes permisos suficientes para ver este documento.`, COLORS.red);
   }
 }
 
-// 4. Clase que representa al Usuario - User
+// 4. Clase que representa al Usuario - User 🆗✅✅✅
 class User {
   private name: string;
   private role: 'admin' | 'user';
@@ -70,7 +82,7 @@ function main() {
   const confidentialDoc = new ConfidentialDocument(
     'Este es el contenido confidencial del documento.'
   );
-  const proxy = new DocumentProxy(confidentialDoc);
+  const proxy = new DocumentProxy(confidentialDoc, ['admin']);
 
   const user1 = new User('Juan', 'user');
   const user2 = new User('Ana', 'admin');
