@@ -9,7 +9,7 @@
 
 import { COLORS } from '../helpers/colors.ts';
 
-// 1. Clase que representa el tipo de bala - BulletType (Flyweight)
+// 1. Clase que representa el tipo de bala - BulletType (Flyweight) 🆗✅✅✅
 class BulletType {
   private name: string;
   private damage: number;
@@ -34,23 +34,27 @@ class BulletType {
   }
 }
 
-// 2. Fábrica de Flyweights - BulletTypeFactory
+// 2. Fábrica de Flyweights - BulletTypeFactory 🆗✅✅✅
 class BulletTypeFactory {
   private bulletTypes: Record<string, BulletType> = {};
 
   getBulletType(name: string, damage: number, color: string): BulletType {
-    // TODO: Implementar un método para obtener un tipo de bala
-    // Si no existe el tipo de bala, crearlo y guardarlo en la lista de tipos de bala
-    // Si existe el tipo de bala, devolverlo
+    // Si no existe el tipo de bala, crearlo y guardarlo en la lista de tipos de balas ✅✅✅
+    // Si existe el tipo de bala, devolverlo ✅✅✅
 
-    // TODO: El key, debería de ser un identificador único para cada tipo de bala
-    // name-damage-color
+    // name-damage-color ✅✅✅
+    const key = `${name}-${damage}-${color}`;
 
-    throw new Error('Method not implemented.');
+    if( !this.bulletTypes[key] ){
+      console.log(`%cCreando una instancia de ${key}`, COLORS.red);
+      this.bulletTypes[key] = new BulletType(name, damage, color);
+    }
+
+    return this.bulletTypes[key];
   }
 }
 
-// 3. Clase que representa una Bala - Bullet
+// 3. Clase que representa una Bala - Bullet 🆗✅✅✅
 class Bullet {
   private x: number;
   private y: number;
@@ -77,7 +81,7 @@ class Bullet {
   }
 }
 
-// 4. Sistema de Disparos - ShootingSystem
+// 4. Sistema de Disparos - ShootingSystem 🆗✅✅✅
 
 class ShootingSystem {
   private bullets: Bullet[] = [];
@@ -106,7 +110,7 @@ class ShootingSystem {
   }
 }
 
-// 5. Código Cliente para probar el Flyweight
+// 5. Código Cliente para probar el Flyweight 🆗✅✅✅
 
 function main() {
   const factory = new BulletTypeFactory();
