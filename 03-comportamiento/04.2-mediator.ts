@@ -31,19 +31,31 @@
 
 import { COLORS } from '../helpers/colors.ts';
 
-// Clase Mediador - ControlTower
+// Clase Mediador - ControlTower 🆗✅✅✅
 class ControlTower {
   private airplanes: Airplane[] = [];
 
-  // Registrar un avión en la torre de control
-  // TODO: Implementar el método registerAirplane
-  // registerAirplane(airplane: Airplane)
+  // Registrar un avión en la torre de control 🆗
+  // Implementar el método registerAirplane ✅✅✅
+  registerAirplane(airplane: Airplane) {
+    this.airplanes.push(airplane);
+    console.log(
+      `%cTorre de Control: %c${airplane.getId()} registrado.`,
+      COLORS.green,
+      COLORS.white
+    );
+  }
 
-  // Enviar un mensaje de un avión a todos los demás
-  //TODO: Implementar el método sendMessage
-  // sendMessage(sender: Airplane, message: string): void
+  // Enviar un mensaje de un avión a todos los demás 🆗
+  //TODO: Implementar el método sendMessage ✅✅✅
+  sendMessage(sender: Airplane, message: string): void {
+    const airplanesToSend = this.airplanes.filter( airplane => airplane !== sender);
+    for (const airplane of airplanesToSend) {
+      airplane.receiveMessage(sender, message);
+    }
+  }
 
-  // Coordinación de aterrizaje
+  // Coordinación de aterrizaje 🆗
   requestLanding(sender: Airplane): void {
     console.log(
       `\n%cTorre de Control: %cPermiso de aterrizaje concedido a ${sender.getId()}`,
@@ -54,7 +66,7 @@ class ControlTower {
     this.sendMessage(sender, `${sender.getId()} está aterrizando.`);
   }
 
-  // Coordinación de despegue
+  // Coordinación de despegue ✅✅✅
   requestTakeoff(sender: Airplane): void {
     console.log(
       `\n%cTorre de Control: %cPermiso de despegue concedido a ${sender.getId()}`,
@@ -66,7 +78,7 @@ class ControlTower {
   }
 }
 
-// Clase Colega - Airplane
+// Clase Colega - Airplane 🆗
 class Airplane {
   private id: string;
   private controlTower: ControlTower;
@@ -75,25 +87,28 @@ class Airplane {
     this.id = id;
     this.controlTower = controlTower;
 
-    // TODO: Registrar el avión en la torre de control
+    // Registrar el avión en la torre de control ✅✅✅
+    this.controlTower.registerAirplane(this);
   }
 
   getId(): string {
     return this.id;
   }
 
-  // Solicitar aterrizaje a la torre de control
+  // Solicitar aterrizaje a la torre de control ✅✅✅
   requestLanding(): void {
     console.log(`${this.id} solicita permiso para aterrizar.`);
 
-    // TODO: Solicitar aterrizaje a la torre de control
+    // Solicitar aterrizaje a la torre de control ✅✅✅
+    this.controlTower.requestLanding(this);
   }
 
-  // Solicitar despegue a la torre de control
+  // Solicitar despegue a la torre de control ✅✅✅
   requestTakeoff(): void {
     console.log(`${this.id} solicita permiso para despegar.`);
 
-    // TODO: Solicitar despegue a la torre de control
+    // Solicitar despegue a la torre de control ✅✅✅
+    this.controlTower.requestTakeoff(this);
   }
 
   // Recibir mensaje de otros aviones
@@ -105,7 +120,7 @@ class Airplane {
   }
 }
 
-// Código Cliente para probar el patrón Mediator
+// Código Cliente para probar el patrón Mediator 🆗✅✅✅
 // ! Aquí no hay nada que modificar en este bloque
 function main(): void {
   const controlTower = new ControlTower();
