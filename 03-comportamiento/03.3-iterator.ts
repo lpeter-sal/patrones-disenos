@@ -27,12 +27,19 @@ class CardCollection {
   addCard(card: Card): void {
     this.cards.push(card);
   }
+  // TODO: Implementación del iterador usando Generadores
+  // *getCard(): IterableIterator<Card>
+  *getCard(): IterableIterator<Card> {
+    for (const card of this.cards) {
+      yield card;
+    }
+  }
 
   //TODO: Implementación del iterador usando Symbol.iterator
   // Symbol.iterator (): IterableIterator<Card>
-
-  // TODO: Implementación del iterador usando Generadores
-  // *getCard(): IterableIterator<Card>
+  *[Symbol.iterator](): IterableIterator<Card> {
+    yield* this.getCard();
+  }
 }
 
 // Código Cliente para probar el iterador
