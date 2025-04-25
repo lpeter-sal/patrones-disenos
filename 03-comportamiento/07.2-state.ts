@@ -22,7 +22,7 @@ import { COLORS, sleep } from '../helpers/index.ts';
  * Su comportamiento varía dependiendo del estado actual.
  */
 
-// Interfaz State
+// Interfaz State 🆗✅✅✅
 interface State {
   name: string;
 
@@ -30,7 +30,7 @@ interface State {
   close(): void;
 }
 
-// Clase Context - AutomaticDoor
+// Clase Context - AutomaticDoor 🆗✅✅✅
 class AutomaticDoor {
   private state: State;
 
@@ -56,14 +56,20 @@ class AutomaticDoor {
   }
 }
 
-// Estado 1 - Cerrada
+// Estado 1 - Cerrada 🆗
 class Closed implements State {
   private door: AutomaticDoor;
   public name: string;
 
+  constructor(door: AutomaticDoor) {
+    this.door = door;
+    this.name = 'Cerrada';
+  }
+
   open(): void {
     console.log('Abriendo la puerta...');
-    // TODO: Implementar lógica para colocar el estado en abriendo la puerta (Opening)
+    // Implementar lógica para colocar el estado en abriendo la puerta (Opening) ✅✅✅
+    this.door.setState(new Opening(this.door));
   }
 
   close(): void {
@@ -71,13 +77,15 @@ class Closed implements State {
   }
 }
 
-// Estado 2 - Abriéndose
+// Estado 2 - Abriéndose 🆗
 class Opening implements State {
   public name: string;
   private door: AutomaticDoor;
 
   constructor(door: AutomaticDoor) {
-    //TODO: asignar door y name = Abriendo
+    //asignar door y name = Abriendo ✅✅✅
+    this.door = door;
+    this.name = 'Abriendo';
     this.afterOpen();
   }
 
@@ -85,7 +93,8 @@ class Opening implements State {
     await sleep(3000);
 
     console.log('La puerta se ha abierto.');
-    // TODO: Implementar lógica para abrir la puerta (Open)
+    // Implementar lógica para abrir la puerta (Open) ✅✅✅
+    this.door.setState(new Open(this.door));
   }
 
   open(): void {
@@ -97,13 +106,14 @@ class Opening implements State {
   }
 }
 
-// Estado 3 - Abierta
+// Estado 3 - Abierta 🆗
 class Open implements State {
   private door: AutomaticDoor;
   public name: string;
 
   constructor(door: AutomaticDoor) {
     this.name = 'Abierta';
+    this.door = door;
   }
 
   open(): void {
@@ -112,31 +122,44 @@ class Open implements State {
 
   close(): void {
     console.log('Cerrando la puerta...');
-    // TODO: Implementar lógica para cerrar la puerta (Closing)
+    // Implementar lógica para cerrar la puerta (Closing) ✅✅✅
+    this.door.setState(new Closing(this.door));
   }
 }
 
-// Estado 4 - Cerrándose
+// Estado 4 - Cerrándose 🆗
 class Closing implements State {
   public name: string;
 
-  constructor(door: AutomaticDoor) {
+  constructor(private door: AutomaticDoor) {
     this.door = door;
     this.name = 'Cerrándose';
+
+    this.afterClosed();
   }
 
   open(): void {
     console.log('Detectando movimiento. Abriendo la puerta nuevamente...');
-    //TODO: Implementar lógica para abrir la puerta (Opening)
+    // Implementar lógica para abrir la puerta (Opening) ✅✅✅
+    this.door.setState(new Opening(this.door));
+  }
+
+  private async afterClosed() {
+    await sleep(3000);
+
+    console.log('La puerta se ha cerrado.');
+    // Implementar lógica para abrir la puerta (Open) ✅✅✅
+    this.door.setState(new Open(this.door));
   }
 
   close(): void {
     console.log('La puerta se ha cerrado.');
-    // TODO: Implementar lógica para cerrar la puerta (Closed)
+    // Implementar lógica para cerrar la puerta (Closed) ✅✅✅
+    this.door.setState(new Closed(this.door));
   }
 }
 
-// Código Cliente para probar el patrón State
+// Código Cliente para probar el patrón State 🆗✅✅✅
 async function main() {
   const door = new AutomaticDoor();
 
