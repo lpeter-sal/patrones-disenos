@@ -40,20 +40,20 @@
 
 import { COLORS } from '../helpers/colors.ts';
 
-// Clase Base - RoomCleaning
+// Clase Base - RoomCleaning 🆗
 abstract class RoomCleaning {
-  // Método plantilla: define el flujo general
+  // Método plantilla: define el flujo general ✅✅✅
   cleanRoom(): void {
     this.enterRoom();
     this.collectTrash();
-    this.specificCleaning(); // Este método hay que implementarlo
+    this.specificCleaning(); // Este método hay que implementarlo ✅✅✅
     this.disinfectSurfaces();
     this.exitRoom();
 
     console.log('Limpieza terminada.\n');
   }
 
-  // Pasos comunes
+  // Pasos comunes ✅✅✅
   private enterRoom(): void {
     console.log('Entrando a la habitación...');
   }
@@ -70,30 +70,42 @@ abstract class RoomCleaning {
     console.log('Saliendo de la habitación y marcándola como limpia.');
   }
 
-  // Método abstracto para limpieza específica
-  // TODO: Implementar el método specificCleaning en las subclases
-  // protected abstract? ambas?
+  // Método abstracto para limpieza específica ✅✅✅
+  // Implementar el método specificCleaning en las subclases ✅✅✅
+  // protected abstract? ambas? ✅✅✅
+  protected abstract specificCleaning(): void;
 }
 
-// Subclase - HotelRoomCleaning
+// Subclase - HotelRoomCleaning 🆗
 class HotelRoomCleaning extends RoomCleaning {
-  // TODO: Implementar método específico
-  // Mensaje: 'Haciendo las camas y reponiendo artículos de baño.'
+  // Implementar método específico ✅✅✅
+  // Mensaje: 'Haciendo las camas y reponiendo artículos de baño.' ✅✅✅
+  protected specificCleaning(): void {
+    console.log('Haciendo las camas y reponiendo artículos de baño.');
+  }
+
 }
 
-// Subclase - ConferenceRoomCleaning
+// Subclase - ConferenceRoomCleaning 🆗
 class ConferenceRoomCleaning extends RoomCleaning {
-  // TODO: Implementar método específico
-  // Mensaje: 'Limpiando mesas y organizando sillas.'
+  // Implementar método específico ✅✅✅
+  // Mensaje: 'Limpiando mesas y organizando sillas.' ✅✅✅
+  protected specificCleaning(): void {
+    console.log('Limpiando mesas y organizando sillas.');
+  }
+
 }
 
-// Subclase - OfficeCleaning
+// Subclase - OfficeCleaning 🆗
 class OfficeCleaning extends RoomCleaning {
-  // TODO: Implementar método específico
-  // Mensaje: 'Limpiando escritorios y organizando documentos.'
+  // Implementar método específico ✅✅✅
+  // Mensaje: 'Limpiando escritorios y organizando documentos.' ✅✅✅
+  protected specificCleaning(): void {
+    console.log('Limpiando escritorios y organizando documentos.');
+  }
 }
 
-// Código Cliente
+// Código Cliente 🆗✅✅✅
 function main(): void {
   console.log('%cLimpieza de una habitación de hotel:', COLORS.blue);
   const hotelRoom = new HotelRoomCleaning();
